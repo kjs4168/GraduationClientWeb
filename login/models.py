@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-class CloudUser(models.Model):
+class CloudUser(models.Model):  #model field 연습한다고 만들어놓은 Model
     user_id = models.CharField(null=True, max_length=32, unique=True, verbose_name='ID')
     user_pw = models.CharField(null=True, max_length=128, verbose_name='PW')
     user_name = models.CharField(null=True, max_length=16, verbose_name='NAME')
