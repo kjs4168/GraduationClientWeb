@@ -1,0 +1,6 @@
+<h1>CloudUser List</h1>
+
+{% for CloudUser in CloudUser_list %}
+    <h2>{{ CloudUser.name }}</h2>
+    {{ CloudUser.birth_date }}
+{% endfor %}
