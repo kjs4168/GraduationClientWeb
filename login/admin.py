@@ -6,4 +6,4 @@ from .models import CloudUser
 
 @admin.register(CloudUser)
 class CloudUserAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name', 'birth_date', 'email', 'created_at', 'updated_at']
+    list_display = ['user_id', 'user_pw', 'user_name', 'user_email', 'user_birthdate']
