@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-=5&+tsh&mp!_dppy)c-j&^4)#y%^*)fl^&nyjx7$$9qzm(u1&u
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '172.30.1.57'] #172.30.1.57 = 내 오픈스택 host ip
 
 
 # Application definition
@@ -37,8 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'login',
-    'register',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'allauth',
+    'allauth.account',
+    'accounts', #custom user
+    'openstack',
 ]
 
 MIDDLEWARE = [
@@ -124,4 +128,8 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = ''    #로그인 성공 후 리다이렉팅 할 url
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    )
+}
