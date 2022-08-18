@@ -38,7 +38,7 @@ def token():
     #print("token : \n",admin_token)
     return admin_token
 
-class openstack_create(APIView):    #하나로 합치기
+class openstack(APIView):    #하나로 합치기
     def post(self, request):
         admin_token = token()
         flavor_id = "d1"
@@ -77,10 +77,15 @@ class openstack_create(APIView):    #하나로 합치기
 
         return Response(user_res.json())
 
-class openstack_list(APIView):
     def get(self, request): #임시로 인스턴스 정보 get 해오는 것 test
         admin_token = token()
         user_res = requests.get("http://" + openstack_hostIP + "/compute/v2.1/servers/39f9010d-f114-4d8a-89b5-abdcfc06608c",
             headers = {'X-Auth-Token' : admin_token})
         
         return Response(user_res.json())
+    
+    def put(self, request):
+        pass
+
+    def delete(self, request):
+        pass
