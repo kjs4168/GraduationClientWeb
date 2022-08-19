@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-=5&+tsh&mp!_dppy)c-j&^4)#y%^*)fl^&nyjx7$$9qzm(u1&u
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '172.30.1.57'] #172.30.1.57 = 내 오픈스택 host ip
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -112,9 +112,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko-kr'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
@@ -133,8 +133,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.User'
 
+SITE_ID = 1
+
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (
         'rest_framework.renderers.JSONRenderer',
+    ),
+    'DEFAULT_PARSER_CLASSES' : (
+        'rest_framework.parsers.JSONParser',
     )
 }

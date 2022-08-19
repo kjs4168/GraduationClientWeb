@@ -2,10 +2,13 @@ from django.shortcuts import render
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+
+from openstack.serializers import OpenstackInstanceSerializer
+from .models import OpenstackInstance
 import json
 import requests
 # Create your views here.
-openstack_hostIP = "172.30.1.57"
+openstack_hostIP = "119.198.160.6"
 
 def token():
     # Admin으로 Token 발급 Body
@@ -79,9 +82,32 @@ class openstack(APIView):    #하나로 합치기
 
     def get(self, request): #임시로 인스턴스 정보 get 해오는 것 test
         admin_token = token()
-        user_res = requests.get("http://" + openstack_hostIP + "/compute/v2.1/servers/39f9010d-f114-4d8a-89b5-abdcfc06608c",
+        instance_id = "8f2a7448-6942-461b-a524-0c9990b8346b"
+        user_res = requests.get("http://" + openstack_hostIP + "/compute/v2.1/servers/" + instance_id,
             headers = {'X-Auth-Token' : admin_token})
         
+        print("flavor_id: ", user_res.json()["server"]["flavor"]["id"])
+        flavor_id = user_res.json()["server"]["flavor"]["id"]
+
+        volume_id = user_res.json()["server"]["os-extended-volumes:volumes_attached"][0]["id"]
+        volume_res = requests.get("http://" + openstack_hostIP + "/compute/v2.1/os-volumes/" + volume_id,
+            headers = {'X-Auth-Token' : admin_token})
+        
+        print("volume size : ", volume_res.json()["volume"]["size"])
+        volume_size = volume_res.json()["volume"]["size"]
+
+        #print('{ "flavor_id" : "' + flavor_id + '", "volume_size" : "', volume_size, '" }')
+        #flavor_volume_data = '{ "flavor_id" : "' + flavor_id + '", "volume_size" : "', volume_size, '" }'
+        #flavor_volume_data_JSON = json.loads(flavor_volume_data)
+        #print(flavor_volume_data_JSON)
+
+        # serializer = OpenstackInstanceSerializer(data=flavor_id)
+        # if serializer.is_valid():
+        #     serializer.save(flavor_id=flavor_id, volume_size=volume_size)
+        #     print("saved")
+        # else:
+        #     print("not saved")
+
         return Response(user_res.json())
     
     def put(self, request):
